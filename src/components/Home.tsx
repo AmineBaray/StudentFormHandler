@@ -1,5 +1,9 @@
-import { data } from '../utils/data'
-function Home() {
+import { Student } from '../utils/data';
+
+interface props {
+    students: Student[]
+  }
+function Home(props: props) {
     return ( 
         <>
         <h1>
@@ -15,12 +19,13 @@ function Home() {
                 </tr>
             </thead>
             <tbody>
-                {data.map((student)=>(
-                <tr className="border-b">
-                    <td>{student.name}</td>
-                    <td>{student.age}</td>
-                    <td>{student.email}</td>
-                    <td>{student.class}</td>
+                {props.students.map((item)=>(
+                <tr key={item.id}
+                className="border-b">
+                    <td>{item.name}</td>
+                    <td>{item.age}</td>
+                    <td>{item.email}</td>
+                    <td>{item.class}</td>
                 </tr>
                 ))}
             </tbody>
