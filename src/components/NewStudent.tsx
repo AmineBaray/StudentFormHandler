@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch } from "react"
+import { ChangeEvent, Dispatch, useRef } from "react"
 import { Student } from "../utils/data"
 
 interface props{
@@ -7,7 +7,12 @@ interface props{
 }
 
 function NewStudent({ setStudents, students }: props) {
-  let formdata = {id: 1, name: "",age: 2,email: "", class: ""}
+  let formdata = {id: 231, name: "",age: 2,email: "", class: ""}
+
+  const nameRef = useRef<HTMLInputElement>(null);
+  const ageRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const classRef = useRef<HTMLInputElement>(null);
 
   const handleChangeName = (e: ChangeEvent<HTMLInputElement>) => {
     formdata.name = e.target.value;
@@ -24,6 +29,18 @@ function NewStudent({ setStudents, students }: props) {
   const handleSubmit  = (e: React.FormEvent) => {
     e.preventDefault();
     setStudents([...students, formdata])
+    if(nameRef.current){
+      nameRef.current.value = ""
+    }
+    if(ageRef.current){
+      ageRef.current.value = ""
+    }
+    if(emailRef.current){
+      emailRef.current.value = ""
+    }
+    if(classRef.current){
+      classRef.current.value = ""
+    }
   }
   return (
     <>
@@ -34,6 +51,7 @@ function NewStudent({ setStudents, students }: props) {
                     <label className="block text-xl font-bold m-2">Full Name:</label>
                     <input
                     onChange={handleChangeName}
+                    ref={nameRef}
                     type="text"
                     required
                     className="shadow  border rounded w-full py-2 px-3 
@@ -42,6 +60,7 @@ function NewStudent({ setStudents, students }: props) {
                     <label className="block text-xl font-bold m-2">Age:</label>
                     <input
                     onChange={handleChangeAge}
+                    ref={ageRef}
                      type="number"
                      required
                      className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight
@@ -50,6 +69,7 @@ function NewStudent({ setStudents, students }: props) {
                     <label className="block text-xl font-bold m-2">Email:</label>
                     <input
                     onChange={handleChangeEmail}
+                    ref={emailRef}
                      type="email"
                      required
                      className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight
@@ -58,6 +78,7 @@ function NewStudent({ setStudents, students }: props) {
                     <label className="block text-xl font-bold m-2">Class:</label>
                     <input
                     onChange={handleChangeClass}
+                    ref={classRef}
                      type="text"
                      required
                      className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight
